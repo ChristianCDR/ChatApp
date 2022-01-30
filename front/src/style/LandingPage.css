@@ -1,0 +1,23 @@
+.block_1, .block_2{
+  width: 50%;
+}
+.block_1, form, button, h1{
+  margin: auto;
+}
+.block_2{
+  background-color: rgb(108, 164, 201) ;
+  
+}
+.home, label, form{
+  display: flex;
+}
+label,form{
+  flex-direction: column;
+}
+form {
+  height: 150px;
+  justify-content: space-around;
+}
+button, form, h1{
+  width:  60%;
+}
