@@ -10,6 +10,31 @@ aside{
   width: 20%;
 }
 main{
-  border: 1px solid red;
   flex-grow: 1;
+}
+aside{
+  background-color: rgb(9, 38, 58);
+  color: white;
+}
+.leaveButton{
+  background-color: red;
+}
+.sendButton{
+  background-color: blue;
+}
+.leaveButton,.sendButton{
+  width: 50%;
+  color: white;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+.head{
+  display: flex;
+  justify-content: space-between;
+}
+.form1{
+  height: 20px;
+  width: 300px;
+  margin-right: 0;
+  padding-top: 5px;
 }

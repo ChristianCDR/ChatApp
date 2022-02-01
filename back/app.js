@@ -19,27 +19,48 @@ app.use('/', indexRoute);
   
 const httpServer = http.createServer(app);
 const io = require ("socket.io")(httpServer,{ cors:{
-  origin: ['http://localhost:3000']
-}}); 
-
+  origin: ['http://localhost:3000']  
+}});  
+  
 io.on("connection", (socket)=>{
-  console.log('New User Connected'); 
+  console.log('New User Connected', socket.id); 
 
-  socket.on("join", salon=>{
-    socket.join(salon)
-    socket.to(salon).emit("receive-message", socket.id + "est connecté")  
+  socket.on("setPseudo", (pseudo)=>{
+    socket.username=pseudo
   })
 
+  socket.on("join", (salon)=>{
+    socket.join(salon)
+    socket.to(salon).emit("receive-message", socket.id + " a rejoint le salon")  
+  })
+
+  socket.on("displayUsers",()=>{ 
+    const users = [];
+    for (let [id, socket] of io.of("/").sockets) {
+      users.push({
+        userID: id,
+        username: socket.username 
+      }); 
+    } 
+    socket.emit("users", users);
+    users.length=0; 
+  }) 
+       
   socket.on("send-message", (message, salon)=>{ 
     if(salon === ""){
-      socket.broadcast.emit("receive-message", message)
+      socket.broadcast.emit("receive-message", message)  
     }
     else{
-      socket.to(salon).emit("receive-message", message)
-      console.log(message)
+      socket.to(salon).emit("receive-message", message)  
+      console.log(message)  
     }
   }) 
-})
+
+  socket.on("leave", salon=>{ 
+    socket.leave(salon);
+    socket.to(salon).emit("receive-message", socket.id + " a quitté le salon"); 
+  })
+}) 
 httpServer.listen(port,()=>{ 
   console.log("Server listening on port: "+ port);  
 })

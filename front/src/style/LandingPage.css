@@ -5,8 +5,8 @@
   margin: auto;
 }
 .block_2{
-  background-color: rgb(108, 164, 201) ;
-  
+  background-color: rgb(9, 38, 58) ;
+  position: relative;
 }
 .home, label, form{
   display: flex;
@@ -20,4 +20,13 @@ form {
 }
 button, form, h1{
   width:  60%;
+}
+img{
+  border: 2px solid black;
+  border-radius: 10%;
+  display: flex;
+  justify-content: space-around;
+  height: 50%;
+  position: absolute;
+  right: 5%;
 }

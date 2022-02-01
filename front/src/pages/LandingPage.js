@@ -3,13 +3,19 @@ import StateReducer from "../components/StateReducer";
 import "../style/LandingPage.css"
 import Form from "../components/Form"
 import connection from "../API/api"
+import logo from "../images/chat-app-logo-260nw-591654449.webp"
 
 const LandingPage = () =>{
   const [ userIdState, userIdDispatch ]= useReducer(StateReducer);
 
   connection.on("connect", () => {
+
     const salon= localStorage.getItem('salon')
+    const pseudo= localStorage.getItem('pseudo')
+
+    connection.emit("setPseudo", pseudo);
     connection.emit("join", salon)
+    
     userIdDispatch({type: 'userId', payload: connection.id}) 
   });
 
@@ -20,7 +26,7 @@ const LandingPage = () =>{
               <Form/>        
           </div>
           <div className="block_2">
-            un logo ici c'est sympa
+            <img src={logo} alt="Logo de chatApp" />
           </div>
       </div>
   )
